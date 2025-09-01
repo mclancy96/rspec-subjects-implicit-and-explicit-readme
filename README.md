@@ -1,6 +1,6 @@
 # RSpec: Subjects (implicit & explicit): The Star of Your Specs
 
-Welcome to Lesson 10! If you’ve ever found yourself typing the same object over and over in your specs, it’s time to meet RSpec’s `subject`. This feature lets you define the “star” of your tests—making your specs cleaner, more focused, and sometimes even a little magical. We’ll cover implicit and explicit subjects, one-liner syntax, and the mysterious `described_class`.
+If you’ve ever found yourself typing the same object over and over in your specs, it’s time to meet RSpec’s `subject`. This feature lets you define the “star” of your tests—making your specs cleaner, more focused, and sometimes even a little magical. We’ll cover implicit and explicit subjects, one-liner syntax, and the mysterious `described_class`.
 
 ---
 
