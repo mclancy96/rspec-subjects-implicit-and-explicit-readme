@@ -13,10 +13,10 @@ The `subject` is the main object your specs are about. It’s like the lead acto
 If you don’t define a subject, RSpec creates one for you based on the class you’re describing.
 
 ```ruby
-# /spec/calculator_spec.rb
-RSpec.describe Calculator do
-  it "is a Calculator" do
-    expect(subject).to be_a(Calculator)
+# /spec/recipe_spec.rb
+RSpec.describe Recipe do
+  it "is a Recipe" do
+    expect(subject).to be_a(Recipe)
   end
 end
 ```
@@ -24,26 +24,26 @@ end
 **Output:**
 
 ```shell
-Calculator
-  is a Calculator
+Recipe
+  is a Recipe
 
 Finished in 0.01 seconds (files took 0.1 seconds to load)
 1 example, 0 failures
 ```
 
-Here, `subject` is a new instance of `Calculator`.
+Here, `subject` is a new instance of `Recipe`.
 
 ## Explicit subject: Naming Your Star
 
 You can define your own subject for more control or clarity.
 
 ```ruby
-# /spec/user_spec.rb
-RSpec.describe User do
-  subject(:user) { User.new(name: "Alice") }
+# /spec/recipe_spec.rb
+RSpec.describe Recipe do
+  subject(:salad) { Recipe.new("Salad") }
 
   it "has a name" do
-    expect(user.name).to eq("Alice")
+    expect(salad.name).to eq("Salad")
   end
 end
 ```
@@ -51,7 +51,7 @@ end
 **Output:**
 
 ```shell
-User
+Recipe
   has a name
 
 Finished in 0.01 seconds (files took 0.1 seconds to load)
@@ -65,19 +65,19 @@ You can use any name you like for the subject (e.g., `subject(:admin) { ... }`).
 If your test is just checking the subject, you can use a one-liner:
 
 ```ruby
-# /spec/calculator_spec.rb
-RSpec.describe Calculator do
-  subject { Calculator.new }
+# /spec/recipe_spec.rb
+RSpec.describe Recipe do
+  subject { Recipe.new("Soup") }
 
-  it { is_expected.to be_a(Calculator) }
+  it { is_expected.to be_a(Recipe) }
 end
 ```
 
 **Output:**
 
 ```shell
-Calculator
-  is expected to be a kind of Calculator
+Recipe
+  is expected to be a kind of Recipe
 
 Finished in 0.01 seconds (files took 0.1 seconds to load)
 1 example, 0 failures
@@ -92,7 +92,8 @@ Finished in 0.01 seconds (files took 0.1 seconds to load)
 - **Lazy evaluation:** `subject` (and `let`) are not instantiated until referenced in an example. For example:
 
 ```ruby
-subject { puts "Building subject!"; User.new }
+
+subject { puts "Building subject!"; Recipe.new("Bread") }
 
 it "doesn't build subject until needed" do
   # No output yet
@@ -100,7 +101,7 @@ it "doesn't build subject until needed" do
 end
 
 it "builds subject when referenced" do
-  expect(subject).to be_a(User) # Triggers the puts
+  expect(subject).to be_a(Recipe) # Triggers the puts
 end
 ```
 
@@ -113,12 +114,12 @@ end
 `described_class` is a special RSpec helper that always refers to the class you’re describing. It’s great for DRYing up your specs.
 
 ```ruby
-# /spec/widget_spec.rb
-RSpec.describe Widget do
-  subject { described_class.new }
+# /spec/recipe_spec.rb
+RSpec.describe Recipe do
+  subject { described_class.new("Cake") }
 
-  it "is a Widget" do
-    expect(subject).to be_a(Widget)
+  it "is a Recipe" do
+    expect(subject).to be_a(Recipe)
   end
 end
 ```
@@ -130,12 +131,36 @@ end
 - Use one-liner syntax for simple, focused specs.
 - Don’t overuse it—sometimes a good old variable or let is clearer!
 
-## Practice Prompts
+## Getting Hands-On
 
-1. Refactor a spec to use `subject` instead of repeating the same object.
-2. Try using `subject(:admin)` to define a custom-named subject. How does it change your tests?
-3. Write a one-liner spec using `is_expected.to`.
-4. Use `described_class` in a spec. What are the benefits?
+Ready to practice? Here’s how to get started:
+
+1. **Fork and clone this repo to your own GitHub account.**
+2. **Install dependencies:**
+
+    ```zsh
+    bundle install
+    ```
+
+3. **Run the specs:**
+
+    ```zsh
+    bin/rspec
+    ```
+
+4. **Explore the code:**
+
+   - All lesson code uses the Recipe and Ingredient domain (see `lib/` and `spec/`).
+   - Review the examples for implicit/explicit subject, subject!, custom subject, and more in `spec/recipe_spec.rb`.
+
+5. **Implement the pending specs:**
+
+     - Open `spec/recipe_spec.rb` and look for specs marked as `pending`.
+     - Implement the real methods in the recipe class (`lib/recipe.rb`) as needed so the pending specs pass.
+
+6. **Re-run the specs** to verify your changes!
+
+**Challenge:** Try writing your own spec using a custom-named subject or one-liner syntax for a new Recipe feature (e.g., "Recipe#calories" or "Ingredient#allergen?").
 
 ---
 
